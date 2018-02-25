@@ -1,0 +1,9 @@
+**/bin/**
+.vs/**
+**/obj/**
+/*.suo
+/TestResult.xml
+/Plainion.JekyllLint.gc.*
+/build/.fake
+*.suo
+/packages/System.ValueTuple.4.3.1
