@@ -7,6 +7,14 @@ open Plainion.JekyllLint.Entities
 module private Impl =
     let isFrontMatterSeparator (str:string) = str.Trim().Equals("---")
 
+    // TODO: multi line front matter with "|"
+    let getKeyValuePairs (lines:string seq) =
+        lines
+        |> Seq.map(fun line -> 
+            let tokens = line.Split(':')
+            tokens.[0].Trim().ToLower(),tokens.[1].Trim())
+
+
 let GetHeader (lines:string seq) =
     let attributes =
         match lines |> List.ofSeq with
@@ -14,8 +22,7 @@ let GetHeader (lines:string seq) =
         | h::t when h |> isFrontMatterSeparator -> 
             t 
             |> Seq.takeWhile (isFrontMatterSeparator >> not)
-            |> Seq.map(fun l -> l.Split(':'))
-            |> Seq.map(fun tokens -> tokens.[0].Trim().ToLower(),tokens.[1].Trim())
+            |> getKeyValuePairs
             |> Map.ofSeq
         | _ -> Map.empty
 
