@@ -14,4 +14,4 @@ let validatePage rules page =
     |> Seq.choose(fun ((id,rule),severity) -> page |> rule |> Option.map (finding id severity))
 
 let reportFinding finding =
-    printfn "%s: %s %s: %s" finding.Page.Location (finding.Severity.ToString()) finding.Id.Value finding.Message
+    printfn "%s: %s %s: %s" finding.Page.Location (finding.Severity.ToString()) (printRuleId finding.Id) finding.Message

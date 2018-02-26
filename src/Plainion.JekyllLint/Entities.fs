@@ -5,9 +5,14 @@ open System.Reflection
 open Microsoft.FSharp.Quotations.Patterns
 open Microsoft.FSharp.Linq.RuntimeHelpers
 
-type RuleId(value) =
-    new(id:int) = RuleId(id |> sprintf "JL%04i")
-    member this.Value = value
+type RuleId = | RuleId of string
+
+let createRuleId id =
+    id |> sprintf "JL%04i" |> RuleId
+
+let printRuleId id =
+    let (RuleId v) = id
+    v
 
 type Header = {
     Title : string option 
@@ -35,7 +40,7 @@ type Finding = {
 type RuleAttribute(id:int,value) =
     inherit Attribute()
 
-    member this.Id = id |> RuleId
+    member this.Id = id |> createRuleId
     member this.Value = value
 
 let compileRule expr =
