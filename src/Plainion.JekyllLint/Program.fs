@@ -8,9 +8,9 @@ open Plainion.JekyllLint.Gateways
 
 let rules = 
     [
-        <@ Rules.PageTitleMissing     @> |> compileRule, Error
-        <@ Rules.PageTitleTooLong 60  @> |> compileRule, Warning
-        <@ Rules.ContentTooShort 2000 @> |> compileRule, Warning
+        <@ Rules.PageTitleMissing     @> |> Engine.compileRule, Error
+        <@ Rules.PageTitleTooLong 60  @> |> Engine.compileRule, Warning
+        <@ Rules.ContentTooShort 2000 @> |> Engine.compileRule, Warning
     ]
 
 [<EntryPoint>]

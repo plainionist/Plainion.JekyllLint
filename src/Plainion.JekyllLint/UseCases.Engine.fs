@@ -1,6 +1,23 @@
 ﻿module Plainion.JekyllLint.UseCases.Engine
 
+open System.Reflection
+open Microsoft.FSharp.Quotations.Patterns
+open Microsoft.FSharp.Linq.RuntimeHelpers
 open Plainion.JekyllLint.Entities
+
+let compileRule expr =
+    let rec getMethodInfo expr =
+        match expr with
+        | Call(_, methodInfo, _) -> methodInfo |> Some
+        | Lambda(_, body) -> getMethodInfo body
+        | Let(_, _, expr2) -> getMethodInfo expr2
+        | _ -> None
+
+    match getMethodInfo expr with
+    | Some mi -> 
+        let attr = mi.GetCustomAttribute(typeof<RuleAttribute>) :?> RuleAttribute
+        attr.Id,(LeafExpressionConverter.EvaluateQuotation(expr) :?> (Page -> string option))
+    | None -> failwithf "Could not extract id from: %A" expr
 
 let validatePage rules page =
     let finding id severity msg =
