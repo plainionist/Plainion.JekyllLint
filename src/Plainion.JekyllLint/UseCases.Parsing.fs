@@ -26,7 +26,7 @@ module private Impl =
         |> List.ofSeq
         |> readLines [] None
 
-let GetHeader (lines:string seq) =
+let getHeader (lines:string seq) =
     let attributes =
         match lines |> List.ofSeq with
         | [] -> Map.empty
@@ -37,12 +37,22 @@ let GetHeader (lines:string seq) =
             |> Map.ofSeq
         | _ -> Map.empty
 
+    let noWarn =
+        let parseNoWarn (value:string) =
+             value.Split([| ',';';' |]) 
+             |> Seq.map(fun id -> id.Trim() |> RuleId)
+             |> List.ofSeq
+
+        attributes 
+        |> Map.tryFind "lint-nowarn" |> Option.map parseNoWarn |> Option.defaultValue [] 
+
     {
         Title = attributes |> Map.tryFind "title"
+        NoWarn = noWarn
         Attributes = attributes
     }
 
-let CreatePage (location,lines:string seq) =
+let createPage (location,lines:string seq) =
     let content =
         match lines |> List.ofSeq with
         | [] -> []
@@ -53,7 +63,7 @@ let CreatePage (location,lines:string seq) =
             |> List.ofSeq
         | x -> x
 
-    let header = lines |> GetHeader
+    let header = lines |> getHeader
 
     { 
         Location = location

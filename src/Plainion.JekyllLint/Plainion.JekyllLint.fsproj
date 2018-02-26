@@ -58,6 +58,8 @@
     <Compile Include="Entities.fs" />
     <Compile Include="UseCases.Parsing.fs" />
     <Compile Include="UseCases.Rules.fs" />
+    <Compile Include="UseCases.Engine.fs" />
+    <Compile Include="Gateways.Pages.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
     <Content Include="packages.config" />

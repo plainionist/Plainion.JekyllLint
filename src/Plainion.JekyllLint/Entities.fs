@@ -1,10 +1,17 @@
 ﻿module Plainion.JekyllLint.Entities
 
 open System
-open Microsoft.FSharp.Reflection
+open System.Reflection
+open Microsoft.FSharp.Quotations.Patterns
+open Microsoft.FSharp.Linq.RuntimeHelpers
+
+type RuleId(value) =
+    new(id:int) = RuleId(id |> sprintf "JL%04i")
+    member this.Value = value
 
 type Header = {
     Title : string option 
+    NoWarn : RuleId list
     Attributes : Map<string,string>
 }
 
@@ -19,21 +26,17 @@ type Severity =
     | Error
 
 type Finding = {
-    Id : string
+    Id : RuleId
     Page : Page
     Severity : Severity
     Message : string
 }
 
-type RuleAttribute(id,value) =
+type RuleAttribute(id:int,value) =
     inherit Attribute()
 
-    member this.Id = id |> sprintf "JL%04i"
+    member this.Id = id |> RuleId
     member this.Value = value
-
-open Microsoft.FSharp.Quotations.Patterns
-open System.Reflection
-open Microsoft.FSharp.Linq.RuntimeHelpers
 
 let compileRule expr =
     let rec getMethodInfo expr =
