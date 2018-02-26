@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="FrontMatterSpecs.fs" />
+    <Compile Include="RuleSpecs.fs" />
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
