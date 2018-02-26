@@ -1,5 +1,7 @@
 ﻿module Plainion.JekyllLint.Entities
 
+open System
+
 type Header = {
     Title : string option 
     Attributes : Map<string,string>
@@ -27,3 +29,10 @@ let finding id page severity message =
       Page = page
       Severity = severity
       Message = message }
+
+type DescriptionAttribute(value) =
+    inherit Attribute()
+
+    member this.Value = value
+
+    

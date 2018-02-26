@@ -7,7 +7,9 @@ open Plainion.JekyllLint.UseCases
 
 let rules = 
     [
+        Rules.PageTitleMissing Error
         Rules.PageTitleTooLong Warning 60
+        Rules.ContentTooShort Warning 2000
     ]
 
 let allFiles dir =
