@@ -6,4 +6,7 @@
 /Plainion.JekyllLint.gc.*
 /build/.fake
 *.suo
-/packages/System.ValueTuple.4.3.1
+/packages/System.ValueTuple.*
+/packages/FSharp.Core.*
+/packages/FsUnit.*
+/packages/NUnit.*

@@ -1,4 +1,6 @@
-﻿open System.IO
+﻿module Plainion.JekyllLint.Main
+
+open System.IO
 open System
 open Plainion.JekyllLint.Entities
 open Plainion.JekyllLint.UseCases
@@ -33,7 +35,7 @@ let validatePage page =
     |> Seq.choose(fun rule -> page |> rule)
 
 let reportFinding finding =
-    printfn "%s: JL%04i: %s - %s" (finding.Severity.ToString().ToUpper()) finding.Id finding.Message finding.Page.Location
+    printfn "%s: %s JL%04i: %s" finding.Page.Location (finding.Severity.ToString()) finding.Id finding.Message
 
 [<EntryPoint>]
 let main argv = 
