@@ -7,9 +7,9 @@ open Plainion.JekyllLint.UseCases
 
 let rules = 
     [
-        Rules.PageTitleMissing Error
-        Rules.PageTitleTooLong Warning 60
-        Rules.ContentTooShort Warning 2000
+        Rules.PageTitleMissing, Error
+        Rules.PageTitleTooLong 60, Warning
+        Rules.ContentTooShort 2000, Warning
     ]
 
 let allFiles dir =
@@ -33,11 +33,17 @@ let createPage file =
         | ex -> failwithf "Failed to parse file: %s%s%s" file Environment.NewLine (ex.ToString())
 
 let validatePage page =
+    let finding rule severity msg =
+        { Id = rule |> getId
+          Page = page
+          Severity = severity
+          Message = msg }
+    
     rules
-    |> Seq.choose(fun rule -> page |> rule)
+    |> Seq.choose(fun (rule,severity) -> page |> rule |> Option.map (finding rule severity))
 
 let reportFinding finding =
-    printfn "%s: %s JL%04i: %s" finding.Page.Location (finding.Severity.ToString()) finding.Id finding.Message
+    printfn "%s: %s %s: %s" finding.Page.Location (finding.Severity.ToString()) finding.Id finding.Message
 
 [<EntryPoint>]
 let main argv = 

@@ -18,21 +18,18 @@ type Severity =
     | Error
 
 type Finding = {
-    Id : int
+    Id : string
     Page : Page
     Severity : Severity
     Message : string
 }
 
-let finding id page severity message =
-    { Id = id
-      Page = page
-      Severity = severity
-      Message = message }
-
-type DescriptionAttribute(value) =
+type RuleAttribute(id,value) =
     inherit Attribute()
 
+    member this.Id = id |> sprintf "JL%04i"
     member this.Value = value
 
-    
+let getId x =
+
+    ""
