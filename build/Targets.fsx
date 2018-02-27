@@ -6,7 +6,7 @@ open Fake
 open PlainionCI
 
 Target "CreatePackage" (fun _ ->
-    !! ( outputPath </> "*.*Tests.*" )
+    !! ( outputPath </> "*.*Specs.*" )
     ++ ( outputPath </> "*nunit*" )
     ++ ( outputPath </> "*Moq*" )
     ++ ( outputPath </> "TestResult.xml" )
