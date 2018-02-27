@@ -48,6 +48,7 @@ let getHeader (lines:string seq) =
 
     {
         Title = attributes |> Map.tryFind "title"
+        Description = attributes |> Map.tryFind "description"
         NoWarn = noWarn
         Attributes = attributes
     }

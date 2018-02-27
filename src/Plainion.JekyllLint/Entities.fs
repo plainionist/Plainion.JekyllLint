@@ -13,6 +13,7 @@ let printRuleId id =
 
 type Header = {
     Title : string option 
+    Description : string option 
     NoWarn : RuleId list
     Attributes : Map<string,string>
 }
