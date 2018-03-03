@@ -6,8 +6,8 @@ open System.Reflection
 [<assembly: AssemblyProductAttribute("Plainion.JekyllLint")>]
 [<assembly: AssemblyDescriptionAttribute("Plainion.JekyllLint")>]
 [<assembly: AssemblyCopyrightAttribute("Copyright @ 2018")>]
-[<assembly: AssemblyVersionAttribute("1.0.0")>]
-[<assembly: AssemblyFileVersionAttribute("1.0.0")>]
+[<assembly: AssemblyVersionAttribute("1.1.0")>]
+[<assembly: AssemblyFileVersionAttribute("1.1.0")>]
 do ()
 
 module internal AssemblyVersionInformation =
@@ -15,5 +15,5 @@ module internal AssemblyVersionInformation =
     let [<Literal>] AssemblyProduct = "Plainion.JekyllLint"
     let [<Literal>] AssemblyDescription = "Plainion.JekyllLint"
     let [<Literal>] AssemblyCopyright = "Copyright @ 2018"
-    let [<Literal>] AssemblyVersion = "1.0.0"
-    let [<Literal>] AssemblyFileVersion = "1.0.0"
+    let [<Literal>] AssemblyVersion = "1.1.0"
+    let [<Literal>] AssemblyFileVersion = "1.1.0"

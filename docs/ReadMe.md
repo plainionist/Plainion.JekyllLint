@@ -64,6 +64,7 @@ To add an alt text with markdown use the following syntax:
 ```MarkDown
 ![alt text](http://some-domain.net/myimage.png)
 ```
+![alt text](http://some-domain.net/myimage.png)
 
 With HTML you can add an alt text as follows
 
