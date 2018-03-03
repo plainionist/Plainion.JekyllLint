@@ -66,8 +66,20 @@ let createPage (location,lines:string seq) =
 
     let header = lines |> getHeader
 
+    let contentStart = 
+        match content with
+        | [] -> 0
+        | h::t -> lines |> Seq.findIndex(fun l -> h = l)
+
     { 
         Location = location
         Header = header
         Content = content 
+        ContentStartLine = contentStart
     }
+
+// syntax:
+// ![](url "")
+// <img src="" alt=""/>
+let tryGetImage line =
+    None

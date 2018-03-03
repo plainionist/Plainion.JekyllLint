@@ -13,6 +13,8 @@ let rules =
         <@ Rules.ContentTooShort 2000           @> |> Engine.compileRule, Warning
         <@ Rules.DescriptionMissing             @> |> Engine.compileRule, Error
         <@ Rules.DescriptionLengthNotOptimal    @> |> Engine.compileRule, Warning
+        <@ Rules.ImageHasNoAltText              @> |> Engine.compileRule, Error
+        <@ Rules.ImageHasNoTitleText            @> |> Engine.compileRule, Warning
     ]
 
 [<EntryPoint>]

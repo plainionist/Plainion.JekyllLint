@@ -16,7 +16,7 @@ let compileRule expr =
     match getMethodInfo expr with
     | Some mi -> 
         let attr = mi.GetCustomAttribute(typeof<RuleAttribute>) :?> RuleAttribute
-        attr.Id,(LeafExpressionConverter.EvaluateQuotation(expr) :?> (Page -> string option))
+        attr.Id,(LeafExpressionConverter.EvaluateQuotation(expr) :?> (Page -> string list))
     | None -> failwithf "Could not extract id from: %A" expr
 
 let validatePage rules page =
@@ -28,7 +28,10 @@ let validatePage rules page =
     
     rules
     |> Seq.filter(fun ((id,_),_) -> page.Header.NoWarn |> Seq.contains id |> not)
-    |> Seq.choose(fun ((id,rule),severity) -> page |> rule |> Option.map (finding id severity))
+    |> Seq.map(fun ((id,rule),severity) -> page |> rule |> Seq.map (finding id severity))
+    |> Seq.concat
+    |> List.ofSeq
+
 
 let reportFinding finding =
     printfn "%s: %s %s: %s" finding.Page.Location (finding.Severity.ToString()) (printRuleId finding.Id) finding.Message

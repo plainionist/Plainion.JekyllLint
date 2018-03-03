@@ -22,6 +22,13 @@ type Page = {
     Location : string
     Header : Header
     Content : string list 
+    ContentStartLine : int
+}
+
+type Image = {
+    Source : string
+    Alt : string option
+    Title : string option
 }
 
 type Severity =

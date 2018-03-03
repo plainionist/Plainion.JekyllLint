@@ -53,3 +53,40 @@ Descriptions which are too long might be shortened by search engines.
 A descriptions should have between 50 and 300 characters.
 
 See also: <https://moz.com/learn/seo/meta-description>
+
+### JL0006
+
+Images should have "alt" text. This is not only important in case the image cannot be
+displayed, it also impacts SEO.
+
+To add an alt text with markdown use the following syntax:
+
+```MarkDown
+![alt text](http://some-domain.net/myimage.png)
+```
+
+With HTML you can add an alt text as follows
+
+```HTML
+<img src="http://some-domain.net/myimage.png" alt="alt text"/>
+```
+
+See also: <https://moz.com/learn/seo/alt-text>
+
+### JL0007
+
+Images should have "title" text. This is not only serving as tool-tip, it also impacts SEO.
+
+To add a title text with markdown use the following syntax:
+
+```MarkDown
+![](http://some-domain.net/myimage.png "title text")
+```
+
+With HTML you can add a title as follows
+
+```HTML
+<img src="http://some-domain.net/myimage.png" title="title text"/>
+```
+
+See also: <https://yoast.com/image-seo-alt-tag-and-title-tag-optimization/>
