@@ -2,6 +2,8 @@
 
 open System
 open Plainion.JekyllLint.Entities
+open System.Text.RegularExpressions
+open System.Collections.Generic
 
 [<AutoOpen>]
 module private Impl =
@@ -75,11 +77,46 @@ let createPage (location,lines:string seq) =
         Location = location
         Header = header
         Content = content 
-        ContentStartLine = contentStart
+        ContentStartLine = contentStart + 1 // start counting with 1
     }
 
+let markdownImage = new Regex("!\[(.*)\]\((.*)\)")
+let urlWithTitle = new Regex("^(.*)\s+\"(.*)\"$")
+let htmlImage = new Regex("<img(\s+[a-zA-Z0-9-]+=\"[^\"]*\")*")
+let htmlAttributes = new Regex("\s+([a-zA-Z0-9-]+)=\"(.*)\"")
+
 // syntax:
-// ![](url "")
-// <img src="" alt=""/>
+// ![alt text](url "title")
+// <img src="" alt="" title=""/>
+// https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#images
 let tryGetImage line =
-    None
+    let md = markdownImage.Match(line)
+    if md.Success then
+        let altText = md.Groups.[1].Value
+        let url,title =
+            let urlText = md.Groups.[2].Value
+            let md = urlWithTitle.Match(urlText)
+            if md.Success then
+                md.Groups.[1].Value,(md.Groups.[2].Value.Trim([|'"'|]) |> Some)
+            else
+                urlText,None
+
+        { Alt = if String.IsNullOrWhiteSpace(altText) then None else altText |> Some
+          Title = title
+          Source = url } |> Some
+    else
+        let md1 = htmlImage.Match(line)
+        if md1.Success then
+            let attributes =
+                md1.Groups.[1].Captures
+                |> Seq.cast<Capture>
+                |> Seq.map(fun g -> 
+                    let md = htmlAttributes.Match(g.Value)
+                    md.Groups.[1].Value,md.Groups.[2].Value)
+                |> Map.ofSeq
+            { Alt = attributes |> Map.tryFind("alt")
+              Title = attributes |> Map.tryFind("title")
+              Source = attributes |> Map.tryFind("src") |> Option.defaultValue ""
+            } |> Some
+        else 
+            None

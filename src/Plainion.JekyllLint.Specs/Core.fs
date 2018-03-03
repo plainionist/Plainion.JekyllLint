@@ -16,6 +16,6 @@ module internal Impl =
     let finding findings = 
         match findings |> List.ofSeq with
         | [] -> failwith "No finding reported"
-        | [f] -> f.Id |> printRuleId,f.Message
+        | [f] -> f.Id |> printRuleId,f.LineNumber,f.Message
         | _ -> failwith "More than one finding reported"
 

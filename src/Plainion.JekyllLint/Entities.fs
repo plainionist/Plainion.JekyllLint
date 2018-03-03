@@ -38,6 +38,7 @@ type Severity =
 type Finding = {
     Id : RuleId
     Page : Page
+    LineNumber : int
     Severity : Severity
     Message : string
 }

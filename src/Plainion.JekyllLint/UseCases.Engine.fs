@@ -16,13 +16,14 @@ let compileRule expr =
     match getMethodInfo expr with
     | Some mi -> 
         let attr = mi.GetCustomAttribute(typeof<RuleAttribute>) :?> RuleAttribute
-        attr.Id,(LeafExpressionConverter.EvaluateQuotation(expr) :?> (Page -> string list))
+        attr.Id,(LeafExpressionConverter.EvaluateQuotation(expr) :?> (Page -> (int*string) list))
     | None -> failwithf "Could not extract id from: %A" expr
 
 let validatePage rules page =
-    let finding id severity msg =
+    let finding id severity (lineNo,msg) =
         { Id = id
           Page = page
+          LineNumber = lineNo
           Severity = severity
           Message = msg }
     
@@ -34,4 +35,4 @@ let validatePage rules page =
 
 
 let reportFinding finding =
-    printfn "%s: %s %s: %s" finding.Page.Location (finding.Severity.ToString()) (printRuleId finding.Id) finding.Message
+    printfn "%s(%i,0): %s %s: %s" finding.Page.Location finding.LineNumber (finding.Severity.ToString()) (printRuleId finding.Id) finding.Message

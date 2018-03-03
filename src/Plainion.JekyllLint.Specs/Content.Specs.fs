@@ -15,7 +15,7 @@ module ``Given a page with short content`` =
         |> page
         |> validate <@ Rules.ContentTooShort 10 @> 
         |> finding
-        |> should equal ("JL0003","Content too short: 9 words < 10 words")
+        |> should equal ("JL0003",0,"Content too short: 9 words < 10 words")
 
 [<TestFixture>]
 module ``Given a link to and image`` =
@@ -28,7 +28,7 @@ module ``Given a link to and image`` =
         |> page
         |> validate <@ Rules.ImageHasNoAltText @> 
         |> finding
-        |> should equal ("JL0006","Image in line 2 has no alt text")
+        |> should equal ("JL0006",2,"Image has no alt text")
 
     [<Test>]
     let ``<When> image link is with HTML syntax <and> 'alt' text is missing <Then> rule JL0006 complains``() =
@@ -39,7 +39,7 @@ module ``Given a link to and image`` =
         |> page
         |> validate <@ Rules.ImageHasNoAltText @> 
         |> finding
-        |> should equal ("JL0006","Image in line 2 has no alt text")
+        |> should equal ("JL0006",2,"Image has no alt text")
 
     [<Test>]
     let ``<When> image link is with markdown syntax <and> 'title' text is missing <Then> rule JL0007 complains``() =
@@ -50,7 +50,7 @@ module ``Given a link to and image`` =
         |> page
         |> validate <@ Rules.ImageHasNoTitleText @> 
         |> finding
-        |> should equal ("JL0006","Image in line 2 has no title text")
+        |> should equal ("JL0007",2,"Image has no title text")
 
     [<Test>]
     let ``<When> image link is with HTML syntax <and> 'title' text is missing <Then> rule JL0007 complains``() =
@@ -61,5 +61,5 @@ module ``Given a link to and image`` =
         |> page
         |> validate <@ Rules.ImageHasNoTitleText @> 
         |> finding
-        |> should equal ("JL0006","Image in line 2 has no title text")
+        |> should equal ("JL0007",2,"Image has no title text")
 

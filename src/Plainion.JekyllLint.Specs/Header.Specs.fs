@@ -17,7 +17,7 @@ module ``Given a page with invalid title`` =
         |> page
         |> validate <@ Rules.TitleMissing @> 
         |> finding
-        |> should equal ("JL0001","Page has no title")
+        |> should equal ("JL0001",0,"Page has no title")
 
     [<Test>]
     let ``<When> title is missing <and> 'lint-nowarn: JL0001' is defined <Then> JL0001 does not report any finding``() =
@@ -42,7 +42,7 @@ module ``Given a page with invalid title`` =
         |> page
         |> validate <@ Rules.TitleTooLong @> 
         |> finding
-        |> should equal ("JL0002","Title too long: 85 chars > 60 chars")
+        |> should equal ("JL0002",0,"Title too long: 85 chars > 60 chars")
 
     [<Test>]
     let ``<When> title is too long <and> 'lint-nowarn: JL0002' is defined <Then> JL0002 does not report any finding``() =
@@ -70,7 +70,7 @@ module ``Given a page with non-optimal description`` =
         |> page
         |> validate <@ Rules.DescriptionMissing @> 
         |> finding
-        |> should equal ("JL0004","Page has no description")
+        |> should equal ("JL0004",0,"Page has no description")
 
     [<Test>]
     let ``<When> description is too long <Then> rule JL0005 complains``() =
@@ -83,7 +83,7 @@ module ``Given a page with non-optimal description`` =
         |> page
         |> validate <@ Rules.DescriptionLengthNotOptimal @> 
         |> finding
-        |> should equal ("JL0005","Description too long: 372 chars > 300 chars")
+        |> should equal ("JL0005",0,"Description too long: 372 chars > 300 chars")
 
     [<Test>]
     let ``<When> description is multi-line and too long <Then> rule JL0005 complains``() =
@@ -98,7 +98,7 @@ module ``Given a page with non-optimal description`` =
         |> page
         |> validate <@ Rules.DescriptionLengthNotOptimal @> 
         |> finding
-        |> should equal ("JL0005","Description too long: 371 chars > 300 chars")
+        |> should equal ("JL0005",0,"Description too long: 371 chars > 300 chars")
 
 
     [<Test>]
@@ -112,4 +112,4 @@ module ``Given a page with non-optimal description`` =
         |> page
         |> validate <@ Rules.DescriptionLengthNotOptimal @> 
         |> finding
-        |> should equal ("JL0005","Description too short: 13 chars < 50 chars")
+        |> should equal ("JL0005",0,"Description too short: 13 chars < 50 chars")

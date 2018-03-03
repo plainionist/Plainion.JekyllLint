@@ -1,4 +1,4 @@
-## 1.1.0 - 2018-03-02
+## 1.1.0 - 2018-03-03
 
 - added rules to check image alt and title text
 
