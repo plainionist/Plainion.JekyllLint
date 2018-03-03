@@ -2,20 +2,20 @@
 
 open Plainion.JekyllLint.Entities
 
-[<Rule(1, "A page should have a title.")>]
+[<Rule(1)>]
 let TitleMissing page =
     match page.Header.Title with
     | None -> "Page has no title" |> Some
     | _ -> None
 
-[<Rule(2,"Titles which are too long might be shortened by search engines. See also: https://moz.com/learn/seo/title-tag")>]
+[<Rule(2)>]
 let TitleTooLong page =
     let maxLength = 60
     match page.Header.Title with
     | Some title when title.Length > maxLength -> sprintf "Title too long: %i chars > %i chars" title.Length maxLength |> Some
     | _ -> None
 
-[<Rule(3,"Content which is too short might be down ranked by search engines as not important enough.")>]
+[<Rule(3)>]
 let ContentTooShort minLength page =
     let count = 
         page.Content
@@ -27,13 +27,13 @@ let ContentTooShort minLength page =
     else
         None
 
-[<Rule(4, "A page should have a description. It will be included in the meta tag if you have jekyll-seo plug-in configured.")>]
+[<Rule(4)>]
 let DescriptionMissing page =
     match page.Header.Description with
     | None -> "Page has no description" |> Some
     | _ -> None
 
-[<Rule(5,"Descriptions which are too long might be shortened by search engines. See also: https://moz.com/learn/seo/meta-description")>]
+[<Rule(5)>]
 let DescriptionLengthNotOptimal page =
     let minLength = 50
     let maxLength = 300

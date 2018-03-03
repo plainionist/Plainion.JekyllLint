@@ -35,9 +35,8 @@ type Finding = {
     Message : string
 }
 
-type RuleAttribute(id:int,value) =
+type RuleAttribute(id:int) =
     inherit Attribute()
 
     member this.Id = id |> createRuleId
-    member this.Value = value
 
