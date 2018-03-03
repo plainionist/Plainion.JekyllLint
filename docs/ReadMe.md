@@ -31,12 +31,16 @@ Each page should have a title.
 ### JL0002
 
 Titles which are too long might be shortened by search engines. 
+Titles should not be longer than 60 characters.
 
-See also: https://moz.com/learn/seo/title-tag
+See also: <https://moz.com/learn/seo/title-tag>
 
 ### JL0003
 
 Content which is too short might be down ranked by search engines as not important enough.
+
+Ideally the content of a blog post is between 2000 and 2400 words long.
+
 
 ### JL0004
 
@@ -46,4 +50,6 @@ A page should have a description. It will be included in the meta tag if you hav
 
 Descriptions which are too long might be shortened by search engines. 
 
-See also: https://moz.com/learn/seo/meta-description
+A descriptions should have between 50 and 300 characters.
+
+See also: <https://moz.com/learn/seo/meta-description>
