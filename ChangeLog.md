@@ -1,4 +1,4 @@
-## 1.2.0 - 2018-03-
+## 1.2.0 - 2018-03-04
 
 - JL0006 and JL0007 fixed: empty HTML attributes correctly detected
 - added "-warning-to-error" to enforce all warnings
