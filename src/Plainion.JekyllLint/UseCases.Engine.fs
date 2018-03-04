@@ -34,5 +34,12 @@ let validatePage rules page =
     |> List.ofSeq
 
 
-let reportFinding finding =
-    printfn "%s(%i,0): %s %s: %s" finding.Page.Location finding.LineNumber (finding.Severity.ToString()) (printRuleId finding.Id) finding.Message
+let reportFinding severityInterpretation finding =
+    let severity = 
+        match severityInterpretation,finding.Severity with
+        | AsIs,x -> x
+        | WarningToError,_ -> Error
+        | ErrorToWarning,_ -> Warning
+
+    printfn "%s(%i,0): %s %s: %s" finding.Page.Location finding.LineNumber (severity.ToString()) (printRuleId finding.Id) finding.Message
+    severity

@@ -31,6 +31,11 @@ type Image = {
     Title : string option
 }
 
+type SeverityInterpretation =
+    | AsIs
+    | WarningToError
+    | ErrorToWarning
+
 type Severity =
     | Warning 
     | Error

@@ -52,9 +52,9 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Core.fs" />
-    <Compile Include="Rule.Definition.Specs.fs" />
-    <Compile Include="Header.Specs.fs" />
-    <Compile Include="Content.Specs.fs" />
+    <Compile Include="ConfigurationSpecs.fs" />
+    <Compile Include="FrontMatterSpecs.fs" />
+    <Compile Include="ContentSpecs.fs" />
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
