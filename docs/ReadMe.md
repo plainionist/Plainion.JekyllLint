@@ -90,3 +90,17 @@ With HTML you can add a title as follows
 ```
 
 See also: <https://yoast.com/image-seo-alt-tag-and-title-tag-optimization/>
+
+## Configuration
+
+You can disable a rule for a specific article or post by adding it to the front matter variable ```lint-nowarn``` like this:
+
+```yaml
+---
+lint-nowarn: JL0003, JL0002
+---
+```
+
+You can instruct Plainion.JekyllLint to treat all warnings as errors by passing ```-warning-to-error``` command line switch.
+
+You can instruct Plainion.JekyllLint to treat all errors as warnings by passing ```-error-to-warning``` command line switch.
