@@ -114,8 +114,15 @@ let tryGetImage line =
                     let md = htmlAttributes.Match(g.Value)
                     md.Groups.[1].Value,md.Groups.[2].Value)
                 |> Map.ofSeq
-            { Alt = attributes |> Map.tryFind("alt")
-              Title = attributes |> Map.tryFind("title")
+            
+            let emptyToNone str =
+                if String.IsNullOrWhiteSpace(str) then
+                    None
+                else
+                    str |> Some
+
+            { Alt = attributes |> Map.tryFind("alt") |> Option.bind emptyToNone
+              Title = attributes |> Map.tryFind("title") |> Option.bind emptyToNone
               Source = attributes |> Map.tryFind("src") |> Option.defaultValue ""
             } |> Some
         else 

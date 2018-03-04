@@ -42,6 +42,16 @@ module ``Given a link to and image`` =
         |> should equal ("JL0006",2,"Image has no alt text")
 
     [<Test>]
+    let ``<When> image link is with HTML syntax <and> 'alt' attribute is empty <Then> rule JL0006 complains``() =
+        [
+            "<img src=\"http://www.123.net/my.png\" alt=\"\"/>"
+        ]
+        |> page
+        |> validate <@ Rules.ImageHasNoAltText @> 
+        |> finding
+        |> should equal ("JL0006",1,"Image has no alt text")
+
+    [<Test>]
     let ``<When> image link is with markdown syntax <and> 'title' text is missing <Then> rule JL0007 complains``() =
         [
             "![](http://www.123.net/my.png \"title text\")"
@@ -62,4 +72,14 @@ module ``Given a link to and image`` =
         |> validate <@ Rules.ImageHasNoTitleText @> 
         |> finding
         |> should equal ("JL0007",2,"Image has no title text")
+
+    [<Test>]
+    let ``<When> image link is with HTML syntax <and> 'title' attribute is empty <Then> rule JL0007 complains``() =
+        [
+            "<img src=\"http://www.123.net/my.png\" title=\"\"/>"
+        ]
+        |> page
+        |> validate <@ Rules.ImageHasNoTitleText @> 
+        |> finding
+        |> should equal ("JL0007",1,"Image has no title text")
 
