@@ -31,11 +31,6 @@ type Image = {
     Title : string option
 }
 
-type SeverityInterpretation =
-    | AsIs
-    | WarningToError
-    | ErrorToWarning
-
 type Severity =
     | Warning 
     | Error
@@ -47,9 +42,4 @@ type Finding = {
     Severity : Severity
     Message : string
 }
-
-type RuleAttribute(id:int) =
-    inherit Attribute()
-
-    member this.Id = id |> createRuleId
 

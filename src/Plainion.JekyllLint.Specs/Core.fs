@@ -11,7 +11,7 @@ module internal Impl =
         ("",lines) |> Parsing.createPage
     
     let validate rule = 
-        Engine.validatePage [ rule |> Engine.compileRule, Warning ]
+        Engine.validatePage [ rule |> Rules.Compiler.compile, Warning ] Engine.AsIs
     
     let finding findings = 
         match findings |> List.ofSeq with

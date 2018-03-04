@@ -4,14 +4,13 @@ open NUnit.Framework
 open FsUnit
 open Plainion.JekyllLint
 open Plainion.JekyllLint.Entities
+open Plainion.JekyllLint.UseCases
 
 [<TestFixture>]
 module ``Given all known rules`` =
-    open Plainion.JekyllLint
-
     [<Test>]
     let ``<When> compiled <Then> rule ids are uniq``() =
-        Main.rules
+        Rules.All
         |> List.map(fun ((id,_),_) -> id)
         |> should equal [ 
                             RuleId("JL0001")
@@ -24,36 +23,27 @@ module ``Given all known rules`` =
                         ]
 
 [<TestFixture>]
-module ``Given a severity interpretation`` =
-    open Plainion.JekyllLint.UseCases
-
-    let finding severity = 
-        { Id = 1 |> createRuleId
-          Page = [] |> page
-          LineNumber = 1
-          Severity = severity
-          Message = "" }
-        
+module ``Given a severity mapping`` =
     [<Test>]
     let ``<When> no special interpretation is configured <and> finding severity is warning <Then> finding is reported as warning``() =
-        finding Warning
-        |> Engine.reportFinding AsIs
+        Warning
+        |> Engine.mapSeverity Engine.AsIs
         |> should equal Warning
         
     [<Test>]
     let ``<When> no special interpretation is configured <and> finding severity is error <Then> finding is reported as error``() =
-        finding Error
-        |> Engine.reportFinding AsIs
+        Error
+        |> Engine.mapSeverity Engine.AsIs
         |> should equal Error  
     
     [<Test>]
     let ``<When> 'warning to error' is configured <and> finding severity is warning <Then> finding is reported as error``() =
-        finding Warning
-        |> Engine.reportFinding WarningToError
+        Warning
+        |> Engine.mapSeverity Engine.WarningToError
         |> should equal Error     
 
     [<Test>]
     let ``<When> 'error to warning' is configured <and> finding severity is error <Then> finding is reported as warning``() =
-        finding Error
-        |> Engine.reportFinding ErrorToWarning
+        Error
+        |> Engine.mapSeverity Engine.ErrorToWarning
         |> should equal Warning 

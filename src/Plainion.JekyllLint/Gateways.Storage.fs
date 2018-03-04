@@ -1,4 +1,4 @@
-﻿module Plainion.JekyllLint.Gateways.Pages
+﻿module Plainion.JekyllLint.Gateways.Storange
 
 open System
 open System.IO

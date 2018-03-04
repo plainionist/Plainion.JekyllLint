@@ -1,10 +1,16 @@
 ﻿module Plainion.JekyllLint.UseCases.Rules
 
+open System
 open Plainion.JekyllLint.Entities
 
 let private toList x = [ x ]
 let private fileIssue msg = 0,msg
 let private lineIssue lineNo msg = lineNo,msg
+
+type RuleAttribute(id:int) =
+    inherit Attribute()
+
+    member this.Id = id |> createRuleId
 
 [<Rule(1)>]
 let TitleMissing page =
@@ -69,3 +75,33 @@ let ImageHasNoTitleText page =
         | Some _ -> None
 
     page |> verifyLines verifyTitleText
+
+module Compiler = 
+    open System.Reflection
+    open Microsoft.FSharp.Quotations.Patterns
+    open Microsoft.FSharp.Linq.RuntimeHelpers
+
+    let compile expr =
+        let rec getMethodInfo expr =
+            match expr with
+            | Call(_, methodInfo, _) -> methodInfo |> Some
+            | Lambda(_, body) -> getMethodInfo body
+            | Let(_, _, expr2) -> getMethodInfo expr2
+            | _ -> None
+
+        match getMethodInfo expr with
+        | Some mi -> 
+            let attr = mi.GetCustomAttribute(typeof<RuleAttribute>) :?> RuleAttribute
+            attr.Id,(LeafExpressionConverter.EvaluateQuotation(expr) :?> (Page -> (int*string) list))
+        | None -> failwithf "Could not extract id from: %A" expr
+
+let All = 
+    [
+        <@ TitleMissing                   @> |> Compiler.compile, Error
+        <@ TitleTooLong                   @> |> Compiler.compile, Warning
+        <@ ContentTooShort 2000           @> |> Compiler.compile, Warning
+        <@ DescriptionMissing             @> |> Compiler.compile, Error
+        <@ DescriptionLengthNotOptimal    @> |> Compiler.compile, Warning
+        <@ ImageHasNoAltText              @> |> Compiler.compile, Error
+        <@ ImageHasNoTitleText            @> |> Compiler.compile, Warning
+    ]

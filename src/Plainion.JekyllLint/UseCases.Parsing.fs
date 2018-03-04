@@ -28,6 +28,11 @@ module private Impl =
         |> List.ofSeq
         |> readLines [] None
 
+    let markdownImage = new Regex("!\[(.*)\]\((.*)\)")
+    let urlWithTitle = new Regex("^(.*)\s+\"(.*)\"$")
+    let htmlImage = new Regex("<img(\s+[a-zA-Z0-9-]+=\"[^\"]*\")*")
+    let htmlAttributes = new Regex("\s+([a-zA-Z0-9-]+)=\"(.*)\"")
+
 let getHeader (lines:string seq) =
     let attributes =
         match lines |> List.ofSeq with
@@ -80,10 +85,6 @@ let createPage (location,lines:string seq) =
         ContentStartLine = contentStart + 1 // start counting with 1
     }
 
-let markdownImage = new Regex("!\[(.*)\]\((.*)\)")
-let urlWithTitle = new Regex("^(.*)\s+\"(.*)\"$")
-let htmlImage = new Regex("<img(\s+[a-zA-Z0-9-]+=\"[^\"]*\")*")
-let htmlAttributes = new Regex("\s+([a-zA-Z0-9-]+)=\"(.*)\"")
 
 // syntax:
 // ![alt text](url "title")
