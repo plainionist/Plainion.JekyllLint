@@ -35,6 +35,14 @@ type Severity =
     | Warning 
     | Error
 
+let aggregateSeverity severities =
+    severities
+    |> Seq.fold(fun severity s -> 
+        match severity,s with
+        | Error,_ -> Error
+        | _, Error -> Error
+        | _,_ -> Warning) Warning
+
 type Finding = {
     Id : RuleId
     Page : Page
