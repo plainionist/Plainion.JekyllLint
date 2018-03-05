@@ -35,3 +35,8 @@ let validatePage rules severityMapping page =
     |> Seq.concat
     |> List.ofSeq
 
+let validatePages getPages rules severityMapping sources =
+    sources
+    |> getPages
+    |> Seq.collect (validatePage rules severityMapping)
+    |> List.ofSeq

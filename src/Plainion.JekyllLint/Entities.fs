@@ -43,6 +43,8 @@ let aggregateSeverity severities =
         | _, Error -> Error
         | _,_ -> Warning) Warning
 
+type Rule = (RuleId * (Page -> (int*string) seq)) * Severity
+
 type Finding = {
     Id : RuleId
     Page : Page

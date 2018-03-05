@@ -6,11 +6,11 @@ open Plainion.JekyllLint.Gateways
 [<EntryPoint>]
 let main argv = 
     let getPages = Storange.getAllPages Parsing.createPage
-    let validatePage = Engine.validatePage Rules.All
+    let validatePages = Engine.validatePages getPages Rules.All
 
     let lines,ret =
         argv
-        |> Controller.performRequest getPages validatePage 
+        |> Controller.performRequest validatePages 
 
     lines
     |> Seq.iter (printfn "%s")

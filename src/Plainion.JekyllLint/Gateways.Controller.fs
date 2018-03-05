@@ -1,9 +1,9 @@
 ﻿module Plainion.JekyllLint.Gateways.Controller
 
 open System
+open System.IO
 open Plainion.JekyllLint.Entities
 open Plainion.JekyllLint.UseCases.Engine
-open System.IO
 
 [<AutoOpen>]
 module internal Presenter =
@@ -22,25 +22,6 @@ module internal Presenter =
 
 [<AutoOpen>]
 module internal Impl =
-    let validate getPages validatePage sources =
-        let findings = 
-            sources
-            |> getPages
-            |> Seq.collect validatePage
-            |> List.ofSeq
-    
-        let lines = 
-            findings
-            |> List.map reportFinding
-    
-        let ret = 
-            findings
-            |> Seq.map(fun f -> f.Severity)
-            |> aggregateSeverity
-            |> function | Error -> 1 | _ -> 0
-
-        lines,ret
-
     type Request = {
         printHelp : bool
         sources : string
@@ -59,7 +40,7 @@ module internal Impl =
             else
                 parseCommandLineRec xs {request with sources = x} 
 
-let performRequest getPages validatePage argv =
+let performRequest validatePages argv =
     let defaultRequest = {
         printHelp = false
         sources =  Path.GetFullPath(".") 
@@ -72,5 +53,14 @@ let performRequest getPages validatePage argv =
     else    
         printfn "Working directory: %s" options.sources
 
-        options.sources
-        |> validate getPages (validatePage options.severityMapping)
+        let findings = options.sources |> (validatePages options.severityMapping)
+    
+        let lines = findings |> List.map reportFinding
+    
+        let ret = 
+            findings
+            |> Seq.map(fun f -> f.Severity)
+            |> aggregateSeverity
+            |> function | Error -> 1 | _ -> 0
+
+        lines,ret
