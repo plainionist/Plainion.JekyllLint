@@ -104,3 +104,12 @@ lint-nowarn: JL0003, JL0002
 You can instruct Plainion.JekyllLint to treat all warnings as errors by passing ```-warning-to-error``` command line switch.
 
 You can instruct Plainion.JekyllLint to treat all errors as warnings by passing ```-error-to-warning``` command line switch.
+
+# Contribution
+
+You have ideas to improve Plainion.JekyllLint? You are welcome to contribute!
+
+Plainion.JekyllLint is hosted on [GitHub](https://github.com/plainionist/Plainion.JekyllLint). 
+Just clone the repository, [setup your environment](Contribution) and get your fingers dirty ;-) 
+Send me a pull request when you are done!
+
