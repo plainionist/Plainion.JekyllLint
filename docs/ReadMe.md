@@ -5,7 +5,7 @@ Looking for a similar quality assurance for your articles and posts?
 
 Plainion.JekyllLint to the rescue ...
 
-## Usage
+# Usage
 
 - download the [latest release](https://github.com/plainionist/Plainion.JekyllLint/releases) and unpack it somewhere
 - either run from command line as follows
@@ -22,31 +22,31 @@ d:\bin\Plainion.JekyllLint\Plainion.JekyllLint.exe <folder to markdown files>
 </Target>  
 ```
 
-## Rules
+# Rules
 
-### JL0001
+## JL0001
 
 Each page should have a title.
 
-### JL0002
+## JL0002
 
 Titles which are too long might be shortened by search engines. 
 Titles should not be longer than 60 characters.
 
 See also: <https://moz.com/learn/seo/title-tag>
 
-### JL0003
+## JL0003
 
 Content which is too short might be down ranked by search engines as not important enough.
 
 Ideally the content of a blog post is between 2000 and 2400 words long.
 
 
-### JL0004
+## JL0004
 
 A page should have a description. It will be included in the meta tag if you have Jekyll-SEO plug-in configured.
 
-### JL0005
+## JL0005
 
 Descriptions which are too long might be shortened by search engines. 
 
@@ -54,7 +54,7 @@ A descriptions should have between 50 and 300 characters.
 
 See also: <https://moz.com/learn/seo/meta-description>
 
-### JL0006
+## JL0006
 
 Images should have "alt" text. This is not only important in case the image cannot be
 displayed, it also impacts SEO.
@@ -73,7 +73,7 @@ With HTML you can add an alt text as follows
 
 See also: <https://moz.com/learn/seo/alt-text>
 
-### JL0007
+## JL0007
 
 Images should have "title" text. This is not only serving as tool-tip, it also impacts SEO.
 
@@ -91,7 +91,7 @@ With HTML you can add a title as follows
 
 See also: <https://yoast.com/image-seo-alt-tag-and-title-tag-optimization/>
 
-## Configuration
+# Configuration
 
 You can disable a rule for a specific article or post by adding it to the front matter variable ```lint-nowarn``` like this:
 
