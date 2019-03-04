@@ -5,8 +5,9 @@ Looking for a similar quality assurance for your articles and posts?
 
 Plainion.JekyllLint to the rescue ...
 
-# Usage
+# Installation & Usage
 
+- you need to have .Net Core 2.1 or newer installed
 - download the [latest release](https://github.com/plainionist/Plainion.JekyllLint/releases) and unpack it somewhere
 - either run from command line as follows
 

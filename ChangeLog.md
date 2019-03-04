@@ -1,4 +1,4 @@
-## 2.0 - 2019-03-03
+## 2.0 - 2019-03-04
 
 - migrated to .Net Core to make it available to non-Windows platforms as well
 
