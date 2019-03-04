@@ -2,32 +2,42 @@
 #r "/bin/Plainion.CI/FAKE/FakeLib.dll"
 #load "/bin/Plainion.CI/bits/PlainionCI.fsx"
 
-open Fake
+open Fake.Core
+open Fake.IO
+open Fake.IO.FileSystemOperators
+open Fake.IO.Globbing.Operators
 open PlainionCI
 
-Target "CreatePackage" (fun _ ->
+Target.create "CreatePackage" (fun _ ->
     !! ( outputPath </> "*.*Specs.*" )
     ++ ( outputPath </> "*nunit*" )
     ++ ( outputPath </> "*Moq*" )
     ++ ( outputPath </> "TestResult.xml" )
     ++ ( outputPath </> "**/*.pdb" )
-    |> DeleteFiles
+    |> File.deleteAll
+        
+    { Program = "dotnet.exe"
+      Args = []
+      WorkingDir = projectRoot
+      CommandLine = @"publish src\Plainion.JekyllLint\Plainion.JekyllLint.fsproj" }
+    |> Process.shellExec
+    |> ignore
 
     PZip.PackRelease()
 )
 
-Target "Deploy" (fun _ ->
+Target.create "Deploy" (fun _ ->
     let releaseDir = @"\bin\Plainion.JekyllLint"
 
-    CleanDir releaseDir
+    Shell.cleanDir releaseDir
 
     let zip = PZip.GetReleaseFile()
-    Unzip releaseDir zip
+    Zip.unzip releaseDir zip
 )
 
-Target "Publish" (fun _ ->
+Target.create "Publish" (fun _ ->
     let zip = PZip.GetReleaseFile()
     PGitHub.Release [ zip ]
 )
 
-RunTarget()
+Target.runOrDefault ""

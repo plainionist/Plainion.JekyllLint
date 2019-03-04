@@ -11,7 +11,7 @@ let createPage creator file =
         | ex -> failwithf "Failed to parse file: %s%s%s" file Environment.NewLine (ex.ToString())
 
 let getAllPages creator dir =
-    let filterTextFiles file =
+    let filterTextFiles (file:string) =
         let textExt = [ ".md"; ".txt" ]
         let inputExt = Path.GetExtension(file)
 

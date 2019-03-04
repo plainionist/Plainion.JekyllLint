@@ -1,3 +1,7 @@
+## 2.0 - 2019-03-03
+
+- migrated to .Net Core to make it available to non-Windows platforms as well
+
 ## 1.2.0 - 2018-03-04
 
 - JL0006 and JL0007 fixed: empty HTML attributes correctly detected

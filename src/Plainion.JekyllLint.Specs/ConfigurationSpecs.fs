@@ -2,7 +2,6 @@
 
 open NUnit.Framework
 open FsUnit
-open Plainion.JekyllLint
 open Plainion.JekyllLint.Entities
 open Plainion.JekyllLint.UseCases
 

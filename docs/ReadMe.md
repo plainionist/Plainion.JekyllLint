@@ -11,14 +11,14 @@ Plainion.JekyllLint to the rescue ...
 - either run from command line as follows
 
 ```
-d:\bin\Plainion.JekyllLint\Plainion.JekyllLint.exe <folder to markdown files>
+dotnet \bin\Plainion.JekyllLint\Plainion.JekyllLint.dll <folder to markdown files>
 ```
 
 - or integrate into your Visual Studio project
 
 ```xml
 <Target Name="AfterBuild">  
-  <Exec Command="D:\bin\Plainion.JekyllLint\Plainion.JekyllLint.exe FOLDER_TO_MARKDOWN_FILES" />
+  <Exec Command="dotnet \bin\Plainion.JekyllLint\Plainion.JekyllLint.dll FOLDER_TO_MARKDOWN_FILES" />
 </Target>  
 ```
 
