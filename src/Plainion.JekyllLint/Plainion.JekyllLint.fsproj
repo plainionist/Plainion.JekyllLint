@@ -4,7 +4,7 @@
     <OutputType>Exe</OutputType>
     <OutputPath>..\..\bin\$(Configuration)\$(Platform)</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
   
   <ItemGroup>

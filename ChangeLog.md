@@ -1,3 +1,7 @@
+## 2.1 - 2019-09-03
+
+- migrated to .Net 5.0
+
 ## 2.0 - 2019-03-04
 
 - migrated to .Net Core to make it available to non-Windows platforms as well
