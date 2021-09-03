@@ -23,7 +23,7 @@ Target.create "CreatePackage" (fun _ ->
         { Program = "dotnet.exe"
           Args = []
           WorkingDir = projectRoot
-          CommandLine = sprintf @"publish --output %s --configuration Release --no-build src\Plainion.JekyllLint\Plainion.JekyllLint.fsproj" outputPath }
+          CommandLine = sprintf @"publish --output %s --configuration Release src\Plainion.JekyllLint\Plainion.JekyllLint.fsproj" outputPath }
         |> Process.shellExec
     if ret <> 0 then failwith "Package creation failed"
 
